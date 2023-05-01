@@ -9,6 +9,7 @@ const OutlinedCard = ({startDate,dueDate,title,description,status}) => {
     const borderColor = status === 'Completed'? 'border-success' : 'border-secondary';
 
     const card = (
+
         <div>
             <CardContent>
                 <div className="row ">
