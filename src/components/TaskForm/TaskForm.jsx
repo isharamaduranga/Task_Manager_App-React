@@ -13,6 +13,9 @@ function TaskForm() {
 
     const [msg, setMsg] = useState('');
 
+    //For update values
+    const [valueForUpdate,setValueForUpdate]=useState({});
+
     const initialValues = {
         startDate: "", title: "", description: "", dueDate: ""
     }
@@ -49,6 +52,9 @@ function TaskForm() {
             if (res.status === 200) {
                 setMsg('Task Saved Successfully ...');
                resetForm({values:''})
+                setTaskUpdated(!taskUpdated);
+                setValueForUpdate({});
+
             }
         }).catch((err) => {
             setMsg('Something Went wrong Not Saved !!!')
@@ -57,7 +63,9 @@ function TaskForm() {
 
 
     const formik = useFormik({
-        initialValues, onSubmit, validate,
+        initialValues: valueForUpdate, // pass valueForUpdate as the initialValues
+        onSubmit,
+        validate,
     });
 
 

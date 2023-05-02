@@ -43,7 +43,7 @@ const OutlinedCard = ({ taskInfo ,onComplete,onDelete}) => {
                     Delete
                 </button>
 
-
+                
             </CardActions>
         </div>
     );

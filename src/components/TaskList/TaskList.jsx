@@ -4,7 +4,7 @@ import axios from "axios";
 
 function TaskList() {
     const [tasks, setTasks] = useState([]);
-    const[taskUpdated,setTaskUpdated]=useState(false);
+    const[taskUpdated,setTaskUpdated]=  useState(false);
 
     useEffect(() => {
         return () => {
