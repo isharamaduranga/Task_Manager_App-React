@@ -15,9 +15,6 @@ function App() {
           <Route path="/addtask" element={<TaskForm/>} ></Route>
         </Routes>
       </BrowserRouter>
-
-
-
     </div>
   );
 }

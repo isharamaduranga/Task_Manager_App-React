@@ -41,8 +41,9 @@ function TaskList(props) {
     );
 
     const displayTasks = () => {
-        return tasks.map((task) => {
+        return tasks.map((task,index) => {
             return <OutlinedCard
+                key={index}
                 startDate={task.startDate}
                 title={task.title}
                 description={task.description}
