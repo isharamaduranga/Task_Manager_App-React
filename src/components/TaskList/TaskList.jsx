@@ -4,6 +4,7 @@ import axios from "axios";
 
 function TaskList() {
     const [tasks, setTasks] = useState([]);
+    const[taskUpdated,setTaskUpdated]=useState(false);
 
     useEffect(() => {
         return () => {
@@ -14,17 +15,23 @@ function TaskList() {
                 }
             })
         };
-    }, [tasks]);
+    }, [taskUpdated]);
+
+    const handleComplete = (taskID) =>{
+        console.log(taskID)
+        const apiURL = `https://task-list-5a410-default-rtdb.firebaseio.com/tasks/${taskID}.json`;
+
+        axios.patch(apiURL,{status:'Completed'}).then((res)=>{
+            setTaskUpdated(!taskUpdated)
+        })
+    }
 
     const displayTasks = () => {
         return tasks.map((task,index) => {
             return <OutlinedCard
                 key={index}
-                startDate={task.startDate}
-                title={task.title}
-                description={task.description}
-                dueDate={task.dueDate}
-                status={task.status}
+                taskInfo={task}
+                onComplete={handleComplete}
             > </OutlinedCard>
 
         })
