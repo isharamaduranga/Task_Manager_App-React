@@ -26,12 +26,22 @@ function TaskList() {
         })
     }
 
+    const handleDelete = (taskID) =>{
+        console.log(taskID)
+        const apiURL = `https://task-list-5a410-default-rtdb.firebaseio.com/tasks/${taskID}.json`;
+
+        axios.delete(apiURL).then((res)=>{
+            setTaskUpdated(!taskUpdated)
+        })
+    }
+
     const displayTasks = () => {
         return tasks.map((task,index) => {
             return <OutlinedCard
                 key={index}
                 taskInfo={task}
                 onComplete={handleComplete}
+                onDelete={handleDelete}
             > </OutlinedCard>
 
         })

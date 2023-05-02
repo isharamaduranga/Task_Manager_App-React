@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 
-const OutlinedCard = ({ taskInfo ,onComplete}) => {
+const OutlinedCard = ({ taskInfo ,onComplete,onDelete}) => {
 
     const borderColor = taskInfo.status === 'Completed'? 'border-primary bg' : 'border-danger';
     const cardStyle = taskInfo.status === 'Completed'? {backgroundColor: "#FFFDD0"} : {backgroundColor: "white"} ;
@@ -38,11 +38,12 @@ const OutlinedCard = ({ taskInfo ,onComplete}) => {
                     Complete
                 </button>
                 <button href="/" className="btn btn-sm btn-danger card-link"
-
-
+                        onClick={()=>onDelete(taskInfo.id)}
                 >
                     Delete
                 </button>
+
+
             </CardActions>
         </div>
     );
