@@ -1,44 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import OutlinedCard from "./TaskItem";
-import moment from "moment";
+import axios from "axios";
 
-function TaskList(props) {
-    const [tasks, setTasks] = useState(
-        [
-            {
-                id: "1",
-                startDate: moment().add("days").format('DD-MM-yyyy'),
-                title: 'Task 01',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, similique.',
-                dueDate: moment().add(3, "days").format('DD-MM-yyyy'),
-                status: 'New',
-            },
-            {
-                id: "2",
-                startDate: moment().add("days").format('DD-MM-yyyy'),
-                title: 'Task 02',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, similique.',
-                dueDate: moment().add(3, "days").format('DD-MM-yyyy'),
-                status: 'New',
-            },
-            {
-                id: "3",
-                startDate: moment().add("days").format('DD-MM-yyyy'),
-                title: 'Task 03',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, similique.',
-                dueDate: moment().add(3, "days").format('DD-MM-yyyy'),
-                status: 'New',
-            },
-            {
-                id: "4",
-                startDate: moment().add("days").format('DD-MM-yyyy'),
-                title: 'Task 04',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, similique.',
-                dueDate: moment().add(3, "days").format('DD-MM-yyyy'),
-                status: 'New',
-            },
-                ]
-    );
+function TaskList() {
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        return () => {
+            const apiURL = 'https://task-list-5a410-default-rtdb.firebaseio.com/tasks.json';
+            axios.get(apiURL).then((res) => {
+                if (res.data) {
+                   setTasks(Object.values(res.data))
+                }
+            })
+        };
+    }, [tasks]);
 
     const displayTasks = () => {
         return tasks.map((task,index) => {
@@ -53,15 +29,10 @@ function TaskList(props) {
 
         })
     }
-
-
     return (
         <div className="container-fluid d-flex flex-wrap gap-5 mt-4 ms-5">
-
             {displayTasks()}
-
         </div>
     );
 }
-
 export default TaskList;

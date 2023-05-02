@@ -6,6 +6,7 @@ import Snackbar from "../SnackBar/SnackBar"
 import {useFormik} from "formik";
 import axios from "axios";
 import {v4 as uuid4} from "uuid";
+import {Link} from "react-router-dom";
 
 
 function TaskForm() {
@@ -33,7 +34,7 @@ function TaskForm() {
         return errors;
     }
 
-    const onSubmit = (values) => {
+    const onSubmit = (values,{resetForm}) => {
 
         const taskId = uuid4();
 
@@ -47,7 +48,7 @@ function TaskForm() {
         axios.put(apiURL, task).then((res) => {
             if (res.status === 200) {
                 setMsg('Task Saved Successfully ...');
-                console.log("")
+               resetForm({values:''})
             }
         }).catch((err) => {
             setMsg('Something Went wrong Not Saved !!!')
@@ -60,6 +61,7 @@ function TaskForm() {
     });
 
 
+    const newMsg = <Link to="/" className="link-warning">All Tasks</Link>
     return (
         <>
             <div className="d-flex  align-items-center justify-content-center  " style={{height: '80vh'}}>
@@ -91,7 +93,7 @@ function TaskForm() {
                             label="Title"
                             id="outlined-size-small"
                             name="title"
-                            defaultValue={formik.values.title}
+                            value={formik.values.title}
                             size="small"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -106,7 +108,7 @@ function TaskForm() {
                             label="Description"
                             id="fullWidth"
                             name="description"
-                            defaultValue={formik.values.description}
+                            value={formik.values.description}
                             size="small"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -135,7 +137,7 @@ function TaskForm() {
                 </Box>
             </div>
 
-            {msg ? <Snackbar severity="success" message={msg}/> : ""}
+            {msg ? <Snackbar severity="success" message={msg} linkMsg={newMsg}/> : ""}
 
         </>
     )
